@@ -1,0 +1,35 @@
+image:
+  repository: 374288915535.dkr.ecr.us-east-1.amazonaws.com/nexus-claims-genai-java/claims-service
+  pullPolicy: Always
+  tag: "latest"
+
+service:
+  type: LoadBalancer
+  port: 80
+  targetPort: 8080
+
+aws:
+  region: us-east-1
+  s3:
+    bucketName: "referral-claim-notes-374288915535"
+  iam:
+    roleArn: "" # Using node role permissions
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 1024Mi
+  requests:
+    cpu: 250m
+    memory: 512Mi
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 2
+
+serviceAccount:
+  create: true
+  annotations:
+    eks.amazonaws.com/role-arn: arn:aws:iam::374288915535:role/nexus-claims-genai-java-app-role
+  name: ""

@@ -1,0 +1,10 @@
+[
+    {
+        "claimId": "claim-101",
+        "notes": "Customer called to report the accident. Police report filed. Car towed to the shop. Estimator reviewed damages. Waiting for parts."
+    },
+    {
+        "claimId": "claim-102",
+        "notes": "Plumber visited site. Leak identified behind the wall. Drywall removed. mitigation team arrived. Drying process started. Claim approved for repairs."
+    }
+]

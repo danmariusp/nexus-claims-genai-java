@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "claims-service.fullname" . }}
+  labels:
+    {{- include "claims-service.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.autoscaling.minReplicas }}
+  selector:
+    matchLabels:
+      {{- include "claims-service.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "claims-service.selectorLabels" . | nindent 8 }}
+      annotations:
+        # IAM Role for Service Account (IRSA) will be handled via ServiceAccount annotation if needed
+        # For simplicity in this lab, we might attach policy to Node Instance Role or use IRSA
+        # reusing node role for now based on EKS terraform
+    spec:
+      serviceAccountName: {{ include "claims-service.serviceAccountName" . }}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          env:
+            - name: AWS_S3_BUCKET_NAME
+              value: {{ .Values.aws.s3.bucketName | quote }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}

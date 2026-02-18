@@ -1,0 +1,16 @@
+[
+    {
+        "claimId": "claim-101",
+        "status": "IN_PROGRESS",
+        "customerId": "cust-555",
+        "incidentDate": "2024-03-15",
+        "description": "Car accident on highway"
+    },
+    {
+        "claimId": "claim-102",
+        "status": "APPROVED",
+        "customerId": "cust-777",
+        "incidentDate": "2024-02-20",
+        "description": "Water damage in kitchen"
+    }
+]
