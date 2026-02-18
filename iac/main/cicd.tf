@@ -93,6 +93,23 @@ resource "aws_codebuild_project" "build" {
   }
 }
 
+# CodeBuild Webhook for GitHub
+resource "aws_codebuild_webhook" "github" {
+  project_name = aws_codebuild_project.build.name
+  build_type   = "BUILD"
+  filter_group {
+    filter {
+      type    = "EVENT"
+      pattern = "PUSH"
+    }
+
+    filter {
+      type    = "HEAD_REF"
+      pattern = "refs/heads/main"
+    }
+  }
+}
+
 # Grant CodeBuild access to EKS Cluster
 resource "aws_eks_access_entry" "codebuild" {
   cluster_name      = aws_eks_cluster.main.name
