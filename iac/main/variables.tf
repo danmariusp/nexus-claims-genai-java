@@ -10,5 +10,10 @@ variable "builder_role_arn" {
 
 variable "project_name" {
   description = "Project Name"
-  default     = "Introspect2B"
+  default     = "nexus-claims-genai-java"
+}
+
+variable "vpc_cidr" {
+  description = "VPC CIDR"
+  default     = "10.0.0.0/16"
 }

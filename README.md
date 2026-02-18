@@ -42,13 +42,34 @@ The system is designed to provide claim status updates and AI-generated summarie
     cd iac/main
     terraform init && terraform apply
     ```
-3.  **Build and Push Docker Image**:
+4.  **Build and Push Docker Image**:
     ```bash
-    # (Commands to be added)
+    cd src/claims-service
+    mvn clean package -DskipTests
+    docker build -t 374288915535.dkr.ecr.us-east-1.amazonaws.com/nexus-claims-genai-java/claims-service:latest .
+    aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 374288915535.dkr.ecr.us-east-1.amazonaws.com
+    docker push 374288915535.dkr.ecr.us-east-1.amazonaws.com/nexus-claims-genai-java/claims-service:latest
     ```
-4.  **Deploy to EKS**:
+5.  **Deploy to EKS**:
     ```bash
-    # (Helm commands to be added)
+    cd ../..
+    # Obtain EKS credentials
+    aws eks update-kubeconfig --region us-east-1 --name nexus-claims-genai-java-cluster --role-arn arn:aws:iam::374288915535:role/Introspect2BBuilderRole
+    
+    # Deploy Helm Chart
+    helm upgrade --install claims-service ./src/helm/claims-service
+    ```
+6.  **Verify Deployment**:
+    ```bash
+    # Populate mock data
+    ./scripts/populate_data.sh
+    
+    # Get LoadBalancer URL
+    export SERVICE_URL=$(kubectl get svc claims-service -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')
+    
+    # Test API
+    curl "http://$SERVICE_URL/claims/claim-101"
+    curl -X POST "http://$SERVICE_URL/claims/claim-101/summarize"
     ```
 
 ## API Usage

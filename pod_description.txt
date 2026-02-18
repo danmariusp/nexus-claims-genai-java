@@ -1,0 +1,62 @@
+Name:             claims-service-56959596c8-6spcb
+Namespace:        default
+Priority:         0
+Service Account:  claims-service
+Node:             ip-10-0-2-103.ec2.internal/10.0.2.103
+Start Time:       Wed, 18 Feb 2026 10:28:49 +0200
+Labels:           app.kubernetes.io/instance=claims-service
+                  app.kubernetes.io/name=claims-service
+                  pod-template-hash=56959596c8
+Annotations:      <none>
+Status:           Running
+IP:               10.0.2.114
+IPs:
+  IP:           10.0.2.114
+Controlled By:  ReplicaSet/claims-service-56959596c8
+Containers:
+  claims-service:
+    Container ID:   containerd://ce5827c2ce1582433d03602710064f847707796c8fa87eda6320495235100fce
+    Image:          374288915535.dkr.ecr.us-east-1.amazonaws.com/nexus-claims-genai-java/claims-service:latest
+    Image ID:       374288915535.dkr.ecr.us-east-1.amazonaws.com/nexus-claims-genai-java/claims-service@sha256:82b76f8d848f75826be51d932d6f8f8eba45221dd44afe8640ce3817e9a3c72c
+    Port:           8080/TCP (http)
+    Host Port:      0/TCP (http)
+    State:          Running
+      Started:      Wed, 18 Feb 2026 10:28:55 +0200
+    Ready:          True
+    Restart Count:  0
+    Limits:
+      cpu:     500m
+      memory:  1Gi
+    Requests:
+      cpu:     250m
+      memory:  512Mi
+    Environment:
+      AWS_S3_BUCKET_NAME:  referral-claim-notes-374288915535
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-7fjwh (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       True 
+  ContainersReady             True 
+  PodScheduled                True 
+Volumes:
+  kube-api-access-7fjwh:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   Burstable
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type    Reason     Age   From               Message
+  ----    ------     ----  ----               -------
+  Normal  Scheduled  8m8s  default-scheduler  Successfully assigned default/claims-service-56959596c8-6spcb to ip-10-0-2-103.ec2.internal
+  Normal  Pulling    8m8s  kubelet            Pulling image "374288915535.dkr.ecr.us-east-1.amazonaws.com/nexus-claims-genai-java/claims-service:latest"
+  Normal  Pulled     8m3s  kubelet            Successfully pulled image "374288915535.dkr.ecr.us-east-1.amazonaws.com/nexus-claims-genai-java/claims-service:latest" in 4.825s (4.825s including waiting). Image size: 127944862 bytes.
+  Normal  Created    8m3s  kubelet            Created container: claims-service
+  Normal  Started    8m3s  kubelet            Started container claims-service
