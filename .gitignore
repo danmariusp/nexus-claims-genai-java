@@ -1,0 +1,5 @@
+.terraform/
+*.log
+target/
+.idea/
+.DS_Store
