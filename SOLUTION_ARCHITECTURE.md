@@ -106,11 +106,11 @@ $ curl -X POST https://r7twk4cv09.execute-api.us-east-1.amazonaws.com/claims/cla
 
 > **To the Teacher/Evaluator:** Please replace the following placeholders with actual screenshots from your deployment in the AWS Console.
 
-#### 1. Amazon Bedrock (Model Access)
-*Access path:* `AWS Console -> Amazon Bedrock -> Model access`
-*Goal:* Show that "Anthropic Claude" has "Access granted".
+#### 1. Amazon Bedrock (Metrics Proof)
+*Access path:* `AWS Console -> Amazon CloudWatch -> Metrics -> All metrics -> Bedrock -> Across all models`
+*Goal:* Show the **InvocationCount** graph with data points, proving the API successfully called the model.
 
-![Amazon Bedrock Model Access](PLACEHOLDER_IMAGE_BEDROCK)
+![Amazon Bedrock Invocation Metrics](PLACEHOLDER_IMAGE_BEDROCK_METRICS)
 
 #### 2. Amazon EKS (Cluster Status)
 *Access path:* `AWS Console -> EKS -> Clusters -> nexus-claims-genai-java-cluster`
