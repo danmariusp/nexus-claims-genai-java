@@ -112,11 +112,11 @@ $ curl -X POST https://r7twk4cv09.execute-api.us-east-1.amazonaws.com/claims/cla
 
 ![Amazon Bedrock Invocation Metrics](PLACEHOLDER_IMAGE_BEDROCK_METRICS)
 
-#### 2. Amazon EKS (Cluster Status)
-*Access path:* `AWS Console -> EKS -> Clusters -> nexus-claims-genai-java-cluster`
-*Goal:* Show the cluster is "Active" and running.
+#### 2. Amazon EKS (Cluster Status via CLI)
+*Command:* Run `kubectl get pods -A` or `kubectl get nodes` in your terminal.
+*Goal:* Show that the nodes are `Ready` and the `claims-service` pod is `Running`.
 
-![Amazon EKS Cluster](PLACEHOLDER_IMAGE_EKS)
+![EKS CLI Output](PLACEHOLDER_IMAGE_EKS_CLI)
 
 #### 3. Amazon API Gateway (Route Configuration)
 *Access path:* `AWS Console -> API Gateway -> nexus-claims-genai-java-api -> Routes`
