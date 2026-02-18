@@ -10,36 +10,7 @@
 
 The following diagram illustrates the high-level architecture of the solution deployed on AWS.
 
-```mermaid
-graph TD
-    User[Client / Teacher] -->|HTTPS| APIGW[Amazon API Gateway<br/>HTTP API]
-    APIGW -->|VPC Link| NLB[Network Load Balancer<br/>Internal]
-    NLB -->|TCP 30080| EKS[Amazon EKS Cluster<br/>Worker Nodes]
-    
-    subgraph VPC [AWS VPC]
-        direction TB
-        NLB
-        EKS
-        
-        subgraph Pod [Java Spring Boot Pod]
-            App[Claims Service]
-        end
-        
-        EKS --> App
-    end
-    
-    App -->|Get Status| DDB[(Amazon DynamoDB<br/>Claims Table)]
-    App -->|Get Notes| S3[(Amazon S3<br/>Claim Notes)]
-    App -->|Generate Summary| Bedrock[Amazon Bedrock<br/>Claude Model]
-    
-    style User fill:#f9f,stroke:#333,stroke-width:2px
-    style APIGW fill:#ff9900,stroke:#333,stroke-width:2px
-    style NLB fill:#ff9900,stroke:#333,stroke-width:2px
-    style EKS fill:#ff9900,stroke:#333,stroke-width:2px
-    style DDB fill:#3399ff,stroke:#333,stroke-width:2px
-    style S3 fill:#3399ff,stroke:#333,stroke-width:2px
-    style Bedrock fill:#00cc00,stroke:#333,stroke-width:2px
-```
+![Architecture Diagram](images/diagram.png)
 
 ## 3. Technology Choices & Rationale
 
@@ -102,36 +73,40 @@ $ curl -X POST https://r7twk4cv09.execute-api.us-east-1.amazonaws.com/claims/cla
 }
 ```
 
-### Infrastructure Screenshots (Placeholders)
-
-> **To the Teacher/Evaluator:** Please replace the following placeholders with actual screenshots from your deployment in the AWS Console.
+### Infrastructure Screenshots
 
 #### 1. Amazon Bedrock (Metrics Proof)
 *Access path:* `AWS Console -> Amazon CloudWatch -> Metrics -> All metrics -> Bedrock -> Across all models`
 *Goal:* Show the **InvocationCount** graph with data points, proving the API successfully called the model.
 
-![Amazon Bedrock Invocation Metrics](PLACEHOLDER_IMAGE_BEDROCK_METRICS)
+![Amazon Bedrock Invocation Metrics](images/bedrock.png)
 
 #### 2. Amazon EKS (Cluster Status via CLI)
 *Command:* Run `kubectl get pods -A` or `kubectl get nodes` in your terminal.
 *Goal:* Show that the nodes are `Ready` and the `claims-service` pod is `Running`.
 
-![EKS CLI Output](PLACEHOLDER_IMAGE_EKS_CLI)
+![EKS Console](images/ekscluster.png)
+
+![EKS CLI Output](images/ekspods.png)
 
 #### 3. Amazon API Gateway (Route Configuration)
 *Access path:* `AWS Console -> API Gateway -> nexus-claims-genai-java-api -> Routes`
 *Goal:* Show the `/claims` routes and the integration with the VPC Link.
 
-![API Gateway Routes](PLACEHOLDER_IMAGE_APIGW)
+![API Gateway Routes](images/apigtw.png)
 
 #### 4. AWS CodeBuild (Build History)
 *Access path:* `AWS Console -> CodeBuild -> Build projects -> nexus-claims-genai-java-build`
 *Goal:* Show a "Succeeded" build status.
 
-![CodeBuild History](PLACEHOLDER_IMAGE_CODEBUILD)
+![CodeBuild History](images/cloudbuild.png)
 
 #### 5. Amazon ECR (Container Repository)
 *Access path:* `AWS Console -> ECR -> Repositories -> nexus-claims-genai-java/claims-service`
 *Goal:* Show the repository containing the `latest` image tag.
 
-![Amazon ECR Repository](PLACEHOLDER_IMAGE_ECR)
+![Amazon ECR Repository](images/ecr.png)
+
+#### 6. Browser access
+
+![Browser access](images/linkaccess.png)
